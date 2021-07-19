@@ -14,17 +14,22 @@ const CommentList = () => {
     // ]
 
     const {state} = useContext(Store) // {state,dispatch}
-    const list = state.commentItem
+    const list = state.commentItem; 
     const {loadding,commentItem,error} = state
 
-    const Item = list.map( (v,k)=>{
+
+
+
+
+    const Item = list.map( (v,k)=>{        
         return (
             <CommentItem 
                 key={k}
                 userid={v.userid}
                 content={v.content}
                 date={v.date}
-                index={k}
+                index={v.id}
+                location = {k}
             />
         )
     } )

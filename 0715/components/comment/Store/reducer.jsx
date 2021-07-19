@@ -7,12 +7,14 @@
 const reducer = (state,action) => {
     switch(action.type){
         case "GET_COMMENT": //최초실행했을 때
+       
            return{
                ...state,
                loadding:true,
            }
         
         case "GET_COMMENT_SUCCESS":
+
             return{
                 ...state,
                 loadding:false, 
@@ -28,13 +30,13 @@ const reducer = (state,action) => {
         case "CREATE":
             return {
                 ...state,
-                commentItem:[...state.commentItem,action.payload]
+                commentItem:[...action.payload]
             }
         case "UPDATE":
-            let content = action.payload.content;
-            let index = action.payload.index;
+            let newcontent = action.payload.content;
+            let index = action.payload.location;
             let {commentItem} = {...state}; 
-            commentItem[index].content = content; 
+            commentItem[index].content = newcontent; 
             return {
                 ...state,
                 commentItem:[...commentItem]

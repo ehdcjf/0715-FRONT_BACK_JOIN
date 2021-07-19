@@ -1,12 +1,19 @@
 import React,{useContext,useState} from 'react'
 import Store from './Store/context'
+import {updateComment,deleteComment} from './api/api'
 
-const CommentItem = ({userid,content,date,index}) => {
+
+const CommentItem = ({userid,content,date,index,location}) => {
+    
     const {state,dispatch} = useContext(Store)
     const [input,setInput] = useState('')
 
     const handleDelete = () => { 
-        dispatch({type:'DELETE', payload:index})
+        const payload = {
+            index,
+            location,
+        }
+        deleteComment(dispatch,payload); 
         setInput('')
     }
 
@@ -18,16 +25,15 @@ const CommentItem = ({userid,content,date,index}) => {
         setInput(e.target.value); 
     }
 
-    const handleKeyDown = e => { 
+    const handleKeyDown = e => {
+        const payload = { 
+            index,
+            location,
+            content:input
+        } 
         
         if(e.key === 'Enter' && input!==''){ 
-            dispatch({ 
-                type:'UPDATE',
-                payload:{ 
-                    index,
-                    content:input
-                }
-            })
+            updateComment(dispatch,payload); 
             setInput('')
         }
     }
